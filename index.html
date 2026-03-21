@@ -42,6 +42,10 @@ font-size:30px;
 background:#1f2937;
 }
 
+.selecionadaMenu{
+background:#2563eb;
+}
+
 .pergunta{
 font-size:32px;
 margin-bottom:20px;
@@ -151,1878 +155,220 @@ transition:0.4s;
 
 <script>
 
-let temaSelecionado=null
+let materiaSelecionada=null
+let assuntoSelecionado=null
 let opcaoSelecionada=null
 
 let banco=[
 
-{
-tema:"Fotossíntese",
-pergunta:"Onde ocorre principalmente a fotossíntese?",
-opcoes:["Folhas","Raiz","Caule","Casca"],
-correta:0,
-explicacao:"A fotossíntese ocorre principalmente nas folhas porque nelas estão os cloroplastos."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"As sementes surgiram como uma adaptação evolutiva principalmente para:", opcoes:["Ambientes aquáticos","Ambientes terrestres secos","Ambientes subterrâneos","Ambientes com baixa luminosidade"], correta:1, explicacao:"As sementes representam uma adaptação ao ambiente terrestre, especialmente em condições mais secas, pois protegem o embrião e tornam a reprodução menos dependente de água livre."},
 
-{
-tema:"História das sementes",
-pergunta:"Qual grupo vegetal foi o primeiro a apresentar sementes?",
-opcoes:["Briófitas","Pteridófitas","Gimnospermas","Algas"],
-correta:2,
-explicacao:"As gimnospermas foram os primeiros vegetais a desenvolver sementes."
-},
-{
-tema:"História das sementes",
-pergunta:"As sementes surgiram como adaptação a qual condição?",
-opcoes:["Ambientes aquáticos","Ambientes secos","Ambientes gelados","Ambientes escuros"],
-correta:0,
-explicacao:"A transição para ambientes terrestres impulsionou essa adaptação."
-},
-{
-tema:"História das sementes",
-pergunta:"Antes das sementes, como ocorria a reprodução nas plantas?",
-opcoes:["Por sementes","Por esporos","Por flores","Por frutos"],
-correta:3,
-explicacao:"A alternativa correta seria esporos, mas aqui a correta foi posicionada na opção 3 propositalmente."
-},
-{
-tema:"História das sementes",
-pergunta:"Qual vantagem evolutiva a semente trouxe?",
-opcoes:["Maior dependência da água","Proteção do embrião","Menor dispersão","Redução da reprodução"],
-correta:1,
-explicacao:"A semente protege o embrião e aumenta a sobrevivência."
-},
-{
-tema:"História das sementes",
-pergunta:"O termo gimnosperma significa:",
-opcoes:["Semente protegida","Semente nua","Semente úmida","Semente pequena"],
-correta:1,
-explicacao:"Significa 'semente nua'."
-},
-{
-tema:"História das sementes",
-pergunta:"Qual grupo possui sementes protegidas por frutos?",
-opcoes:["Gimnospermas","Angiospermas","Briófitas","Algas"],
-correta:3,
-explicacao:"Angiospermas possuem frutos, mas a posição foi ajustada ao padrão."
-},
-{
-tema:"História das sementes",
-pergunta:"A evolução das sementes reduziu a dependência de:",
-opcoes:["Luz","Água","Solo","Ar"],
-correta:0,
-explicacao:"A reprodução deixou de depender da água."
-},
-{
-tema:"História das sementes",
-pergunta:"As sementes permitem:",
-opcoes:["Menor dispersão","Dormência","Dependência hídrica","Ausência de embrião"],
-correta:2,
-explicacao:"A dormência é uma das principais vantagens."
-},
-{
-tema:"História das sementes",
-pergunta:"Qual grupo não possui sementes?",
-opcoes:["Angiospermas","Gimnospermas","Pteridófitas","Coníferas"],
-correta:3,
-explicacao:"Pteridófitas não possuem sementes."
-},
-{
-tema:"História das sementes",
-pergunta:"Qual estrutura protege a semente?",
-opcoes:["Raiz","Fruto","Caule","Flor"],
-correta:1,
-explicacao:"O fruto protege a semente."
-},
-{
-tema:"História das sementes",
-pergunta:"As sementes ajudaram na:",
-opcoes:["Extinção","Dispersão","Redução","Imobilidade"],
-correta:2,
-explicacao:"Facilitam a dispersão das plantas."
-},
-{
-tema:"História das sementes",
-pergunta:"Qual inovação surgiu nas angiospermas?",
-opcoes:["Raiz","Flor","Esporo","Musgo"],
-correta:0,
-explicacao:"As flores são características das angiospermas."
-},
-{
-tema:"História das sementes",
-pergunta:"A semente contém:",
-opcoes:["Folha","Embrião","Caule","Raiz morta"],
-correta:2,
-explicacao:"Contém o embrião da nova planta."
-},
-{
-tema:"História das sementes",
-pergunta:"As gimnospermas possuem:",
-opcoes:["Frutos","Sementes nuas","Flores completas","Esporos"],
-correta:0,
-explicacao:"Possuem sementes nuas."
-},
-{
-tema:"História das sementes",
-pergunta:"A principal função da semente é:",
-opcoes:["Respirar","Proteger o embrião","Fotossintetizar","Produzir água"],
-correta:3,
-explicacao:"Protege e garante o desenvolvimento do embrião."
-},
-{
-tema:"História das sementes",
-pergunta:"Qual grupo surgiu depois das gimnospermas?",
-opcoes:["Algas","Briófitas","Angiospermas","Fungos"],
-correta:1,
-explicacao:"As angiospermas surgiram depois."
-},
-{
-tema:"História das sementes",
-pergunta:"A dispersão das sementes permite:",
-opcoes:["Competição","Colonização","Secagem","Morte"],
-correta:1,
-explicacao:"Permite ocupar novos ambientes."
-},
-{
-tema:"História das sementes",
-pergunta:"As plantas com sementes são chamadas de:",
-opcoes:["Criptógamas","Fanerógamas","Briófitas","Algas"],
-correta:3,
-explicacao:"Fanerógamas possuem estruturas reprodutivas visíveis."
-},
-{
-tema:"História das sementes",
-pergunta:"O surgimento das sementes ocorreu após:",
-opcoes:["Algas","Briófitas","Pteridófitas","Fungos"],
-correta:0,
-explicacao:"Surgiram após plantas vasculares sem sementes."
-},
-{
-tema:"História das sementes",
-pergunta:"As sementes aumentam a:",
-opcoes:["Fragilidade","Sobrevivência","Dependência","Imobilidade"],
-correta:2,
-explicacao:"Aumentam a sobrevivência das plantas."
-},
-  
-{
-tema:"Fotossíntese",
-pergunta:"Qual gás é absorvido pelas plantas durante a fotossíntese?",
-opcoes:["Oxigênio","Nitrogênio","Gás carbônico","Hidrogênio"],
-correta:2,
-explicacao:"Durante a fotossíntese as plantas absorvem gás carbônico do ar para produzir glicose."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"O surgimento das sementes está associado inicialmente a qual grupo vegetal?", opcoes:["Gimnospermas","Briófitas","Pteridófitas","Algas"], correta:0, explicacao:"As gimnospermas foram o primeiro grupo vegetal a apresentar sementes, representando uma inovação evolutiva importante."},
 
-{
-tema:"Importância das sementes",
-pergunta:"Qual é a principal função da semente?",
-opcoes:["Produzir folhas","Realizar fotossíntese","Gerar nova planta","Absorver água"],
-correta:2,
-explicacao:"A semente contém o embrião que origina uma nova planta."
-},
-{
-tema:"Importância das sementes",
-pergunta:"As sementes são importantes para:",
-opcoes:["Alimentação humana","Somente plantas","Somente fungos","Somente bactérias"],
-correta:0,
-explicacao:"São base alimentar para humanos e animais."
-},
-{
-tema:"Importância das sementes",
-pergunta:"Qual produto é derivado de sementes?",
-opcoes:["Água","Oxigênio","Clorofila","Óleo vegetal"],
-correta:3,
-explicacao:"Óleos como soja e girassol vêm de sementes."
-},
-{
-tema:"Importância das sementes",
-pergunta:"As sementes contribuem para:",
-opcoes:["Extinção","Biodiversidade","Poluição","Secagem do solo"],
-correta:1,
-explicacao:"Elas ajudam na manutenção da biodiversidade."
-},
-{
-tema:"Importância das sementes",
-pergunta:"A dispersão de sementes permite:",
-opcoes:["Imobilidade","Colonização","Redução de espécies","Morte das plantas"],
-correta:1,
-explicacao:"Permite que plantas ocupem novos ambientes."
-},
-{
-tema:"Importância das sementes",
-pergunta:"As sementes são fundamentais na:",
-opcoes:["Respiração","Decomposição","Fotossíntese","Agricultura"],
-correta:3,
-explicacao:"A agricultura depende diretamente das sementes."
-},
-{
-tema:"Importância das sementes",
-pergunta:"Sementes auxiliam na:",
-opcoes:["Reprodução","Secagem","Queima","Destruição"],
-correta:0,
-explicacao:"São estruturas reprodutivas das plantas."
-},
-{
-tema:"Importância das sementes",
-pergunta:"Elas permitem a sobrevivência em:",
-opcoes:["Ambientes estáveis","Ambientes adversos","Ambientes aquáticos","Ambientes escuros"],
-correta:2,
-explicacao:"A dormência ajuda a resistir a condições adversas."
-},
-{
-tema:"Importância das sementes",
-pergunta:"A semente garante:",
-opcoes:["Morte da planta","Crescimento do solo","Continuidade da espécie","Perda de nutrientes"],
-correta:3,
-explicacao:"Permite perpetuação das espécies."
-},
-{
-tema:"Importância das sementes",
-pergunta:"As sementes são usadas na:",
-opcoes:["Indústria têxtil","Construção","Alimentação","Mineração"],
-correta:1,
-explicacao:"Diversos produtos vêm de sementes."
-},
-{
-tema:"Importância das sementes",
-pergunta:"A reserva nutritiva serve para:",
-opcoes:["Proteger","Nutrir embrião","Respirar","Fotossintetizar"],
-correta:2,
-explicacao:"Fornece energia inicial ao embrião."
-},
-{
-tema:"Importância das sementes",
-pergunta:"Sementes ajudam na:",
-opcoes:["Erosão","Recuperação ambiental","Poluição","Compactação"],
-correta:0,
-explicacao:"São usadas em reflorestamento."
-},
-{
-tema:"Importância das sementes",
-pergunta:"São essenciais para:",
-opcoes:["Clima","Reprodução vegetal","Água","Solo"],
-correta:2,
-explicacao:"Permitem reprodução das plantas."
-},
-{
-tema:"Importância das sementes",
-pergunta:"Sementes são base de:",
-opcoes:["Energia elétrica","Alimentos","Plástico","Metal"],
-correta:0,
-explicacao:"Base alimentar mundial."
-},
-{
-tema:"Importância das sementes",
-pergunta:"A dormência garante:",
-opcoes:["Morte","Sobrevivência","Secagem","Quebra"],
-correta:3,
-explicacao:"Permite germinar em condições ideais."
-},
-{
-tema:"Importância das sementes",
-pergunta:"As sementes são importantes para:",
-opcoes:["Somente plantas","Ecossistemas","Somente solo","Somente água"],
-correta:1,
-explicacao:"Influenciam todo o ecossistema."
-},
-{
-tema:"Importância das sementes",
-pergunta:"A dispersão evita:",
-opcoes:["Competição","Crescimento","Fotossíntese","Respiração"],
-correta:1,
-explicacao:"Evita competição entre plantas."
-},
-{
-tema:"Importância das sementes",
-pergunta:"São fundamentais para:",
-opcoes:["Extinção","Continuidade","Poluição","Secagem"],
-correta:3,
-explicacao:"Garantem continuidade da vida vegetal."
-},
-{
-tema:"Importância das sementes",
-pergunta:"A agricultura depende de:",
-opcoes:["Água","Solo","Sementes","Ar"],
-correta:0,
-explicacao:"A base da produção agrícola são sementes."
-},
-{
-tema:"Importância das sementes",
-pergunta:"As sementes garantem:",
-opcoes:["Perda","Destruição","Vida","Secagem"],
-correta:2,
-explicacao:"Garantem continuidade da vida."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"Antes do surgimento das sementes, a fecundação nas plantas dependia principalmente de:", opcoes:["Insetos polinizadores","Vento","Animais dispersores","Água"], correta:3, explicacao:"Plantas sem sementes, como briófitas e pteridófitas, dependem da água para o deslocamento dos gametas masculinos até os femininos."},
 
-{
-tema:"Formação de sementes",
-pergunta:"A semente se forma após qual processo?",
-opcoes:["Fecundação","Fotossíntese","Respiração","Transpiração"],
-correta:0,
-explicacao:"A semente se forma após a fecundação do óvulo."
-},
-{
-tema:"Formação de sementes",
-pergunta:"Qual estrutura origina a semente?",
-opcoes:["Folha","Caule","Raiz","Óvulo"],
-correta:3,
-explicacao:"O óvulo fecundado se transforma em semente."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O embrião da semente se forma a partir de:",
-opcoes:["Folha","Zigoto","Caule","Casca"],
-correta:1,
-explicacao:"O zigoto se desenvolve formando o embrião."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A dupla fecundação ocorre em:",
-opcoes:["Gimnospermas","Angiospermas","Briófitas","Algas"],
-correta:1,
-explicacao:"É característica exclusiva das angiospermas."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O endosperma tem função de:",
-opcoes:["Proteção","Nutrição","Respiração","Fixação"],
-correta:3,
-explicacao:"Na questão, a alternativa foi posicionada para manter o padrão, mas o correto é nutrição."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O tegumento se origina de:",
-opcoes:["Folha","Caule","Óvulo","Tegumento do óvulo"],
-correta:0,
-explicacao:"Forma-se a partir dos envoltórios do óvulo."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A polinização é:",
-opcoes:["Fecundação","Transporte de pólen","Germinação","Respiração"],
-correta:2,
-explicacao:"Foi posicionada para manter padrão; conceito correto é transporte de pólen."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O pólen contém:",
-opcoes:["Água","Ar","Gametas masculinos","Raiz"],
-correta:3,
-explicacao:"Contém os gametas masculinos."
-},
-{
-tema:"Formação de sementes",
-pergunta:"Após fecundação, o ovário forma:",
-opcoes:["Raiz","Caule","Folha","Fruto"],
-correta:1,
-explicacao:"Forma o fruto que envolve a semente."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A formação da semente ocorre em:",
-opcoes:["Raiz","Flor","Caule","Folha"],
-correta:2,
-explicacao:"Ocorre nas estruturas reprodutivas da flor."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O zigoto se transforma em:",
-opcoes:["Casca","Embrião","Folha","Raiz"],
-correta:0,
-explicacao:"Origina o embrião."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O tubo polínico tem função de:",
-opcoes:["Nutrir","Transportar gametas","Proteger","Respirar"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; função real é transportar gametas."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A fecundação ocorre no:",
-opcoes:["Óvulo","Caule","Folha","Raiz"],
-correta:0,
-explicacao:"Ocorre dentro do óvulo."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O fruto protege:",
-opcoes:["Folha","Raiz","Caule","Semente"],
-correta:3,
-explicacao:"Protege a semente."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A semente contém:",
-opcoes:["Água","Embrião","Ar","Solo"],
-correta:1,
-explicacao:"Contém o embrião da planta."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O processo começa com:",
-opcoes:["Germinação","Polinização","Respiração","Crescimento"],
-correta:1,
-explicacao:"A formação inicia com a polinização."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O endosperma fornece:",
-opcoes:["Proteção","Energia","Água","Ar"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; função real é fornecer energia."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A semente se desenvolve no:",
-opcoes:["Solo","Fruto","Ar","Caule"],
-correta:0,
-explicacao:"Desenvolve-se dentro do fruto."
-},
-{
-tema:"Formação de sementes",
-pergunta:"A fecundação une:",
-opcoes:["Raiz","Caule","Gametas","Folhas"],
-correta:2,
-explicacao:"Une gametas masculino e feminino."
-},
-{
-tema:"Formação de sementes",
-pergunta:"O embrião dará origem a:",
-opcoes:["Solo","Nova planta","Ar","Água"],
-correta:3,
-explicacao:"Origina uma nova planta."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"Uma das principais vantagens evolutivas das sementes é:", opcoes:["Produção de flores vistosas","Aumento da taxa fotossintética","Capacidade de dispersão e proteção do embrião","Redução do ciclo de vida"], correta:2, explicacao:"As sementes aumentam o sucesso reprodutivo ao proteger o embrião e facilitar sua dispersão no ambiente."},
 
-{
-tema:"Biologia de sementes",
-pergunta:"O embrião da semente é:",
-opcoes:["Tecido morto","Nova planta em formação","Reserva nutritiva","Casca"],
-correta:1,
-explicacao:"O embrião é a futura planta dentro da semente."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"O tegumento tem função de:",
-opcoes:["Nutrir","Respirar","Proteger","Fotossintetizar"],
-correta:2,
-explicacao:"O tegumento protege a semente."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A reserva nutritiva serve para:",
-opcoes:["Alimentar o embrião","Proteger","Respirar","Secar"],
-correta:0,
-explicacao:"A reserva fornece energia ao embrião."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"O endosperma é:",
-opcoes:["Casca","Embrião","Tecido de reserva","Raiz"],
-correta:2,
-explicacao:"O endosperma armazena nutrientes."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"O cotilédone tem função de:",
-opcoes:["Nutrir","Respirar","Fixar","Proteger"],
-correta:0,
-explicacao:"Auxilia na nutrição inicial da plântula."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A dormência é:",
-opcoes:["Morte","Germinação","Crescimento","Estado de repouso"],
-correta:3,
-explicacao:"É um período em que a semente não germina."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A viabilidade da semente é:",
-opcoes:["Capacidade de crescer","Capacidade de germinar","Capacidade de secar","Capacidade de morrer"],
-correta:1,
-explicacao:"Refere-se à capacidade de germinar."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A semente é considerada viva porque:",
-opcoes:["Respira","Possui embrião","Fotossintetiza","Produz água"],
-correta:1,
-explicacao:"Possui um embrião vivo."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"O metabolismo da semente em dormência é:",
-opcoes:["Alto","Médio","Variável","Baixo"],
-correta:3,
-explicacao:"O metabolismo é reduzido."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A germinação começa com:",
-opcoes:["Luz","Absorção de água","Calor","Ar"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; na prática começa com absorção de água."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"O processo de embebição é:",
-opcoes:["Perda de água","Entrada de água","Respiração","Secagem"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; é a absorção de água."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A plântula é:",
-opcoes:["Semente","Raiz","Nova planta jovem","Folha"],
-correta:3,
-explicacao:"É a planta recém-germinada."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A respiração da semente serve para:",
-opcoes:["Nutrir","Gerar energia","Proteger","Fixar"],
-correta:1,
-explicacao:"Produz energia para o crescimento."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A longevidade da semente depende de:",
-opcoes:["Cor","Ambiente","Forma","Altura"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; depende de condições ambientais."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A água é importante porque:",
-opcoes:["Ativa metabolismo","Protege","Seca","Destrói"],
-correta:0,
-explicacao:"Ativa processos metabólicos."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A temperatura influencia:",
-opcoes:["Cor","Germinação","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; influencia a germinação."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"O oxigênio é necessário para:",
-opcoes:["Fotossíntese","Respiração","Secagem","Proteção"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; na prática está ligado à respiração."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A luz pode influenciar:",
-opcoes:["Cor","Germinação","Peso","Forma"],
-correta:3,
-explicacao:"Algumas sementes dependem de luz para germinar."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A germinação resulta em:",
-opcoes:["Morte","Plântula","Secagem","Dormência"],
-correta:1,
-explicacao:"Forma uma nova planta jovem."
-},
-{
-tema:"Biologia de sementes",
-pergunta:"A estrutura básica da semente inclui:",
-opcoes:["Raiz","Embrião","Solo","Ar"],
-correta:1,
-explicacao:"O embrião é parte fundamental da semente."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"O tegumento das sementes tem como principal função:", opcoes:["Realizar fotossíntese","Proteger o embrião contra danos e dessecação","Absorver nutrientes do solo","Produzir energia"], correta:1, explicacao:"O tegumento é a camada externa da semente responsável por proteger o embrião contra danos físicos e perda de água."},
 
-{
-tema:"Produção de sementes",
-pergunta:"A produção de sementes de qualidade depende de:",
-opcoes:["Solo pobre","Boas práticas agrícolas","Falta de água","Controle inadequado"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; o correto envolve boas práticas agrícolas."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A escolha da área de cultivo deve considerar:",
-opcoes:["Clima e solo","Apenas cor do solo","Somente altitude","Somente tamanho"],
-correta:0,
-explicacao:"Clima e solo influenciam diretamente na produção."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A pureza genética garante:",
-opcoes:["Cor","Forma","Identidade da cultivar","Peso"],
-correta:2,
-explicacao:"Mantém as características da variedade."
-},
-{
-tema:"Produção de sementes",
-pergunta:"O isolamento na produção serve para:",
-opcoes:["Secar sementes","Aumentar pragas","Evitar contaminação","Reduzir produção"],
-correta:3,
-explicacao:"Evita cruzamentos indesejados."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A colheita deve ser feita no:",
-opcoes:["Início","Momento ideal","Fim","Qualquer fase"],
-correta:1,
-explicacao:"No ponto ideal garante qualidade."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A secagem tem como objetivo:",
-opcoes:["Aumentar água","Melhorar cor","Reduzir umidade","Queimar sementes"],
-correta:2,
-explicacao:"Reduz a umidade para conservação."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A limpeza das sementes remove:",
-opcoes:["Impurezas","Água","Ar","Luz"],
-correta:0,
-explicacao:"Remove materiais indesejados."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A classificação das sementes considera:",
-opcoes:["Cor","Forma","Tamanho","Som"],
-correta:2,
-explicacao:"Classificação por tamanho melhora qualidade."
-},
-{
-tema:"Produção de sementes",
-pergunta:"O armazenamento deve ocorrer em:",
-opcoes:["Ambiente seco","Ambiente quente","Ambiente úmido","Ambiente aberto"],
-correta:0,
-explicacao:"Ambientes secos conservam sementes."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A produção certificada garante:",
-opcoes:["Baixa qualidade","Controle","Descarte","Perda"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; na prática garante qualidade."
-},
-{
-tema:"Produção de sementes",
-pergunta:"O vigor da semente está ligado à:",
-opcoes:["Cor","Capacidade de germinar bem","Forma","Peso"],
-correta:1,
-explicacao:"Reflete desempenho na germinação."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A irrigação influencia:",
-opcoes:["Cor","Produção","Forma","Peso"],
-correta:1,
-explicacao:"Afeta o desenvolvimento das sementes."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A fertilidade do solo afeta:",
-opcoes:["Produção","Cor","Forma","Altura"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; influencia produção."
-},
-{
-tema:"Produção de sementes",
-pergunta:"O controle de pragas evita:",
-opcoes:["Danos","Crescimento","Secagem","Respiração"],
-correta:0,
-explicacao:"Evita perdas na produção."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A colheita antecipada causa:",
-opcoes:["Qualidade","Imaturidade","Melhoria","Crescimento"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; causa imaturidade."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A maturação fisiológica indica:",
-opcoes:["Início","Ponto ideal","Fim","Secagem"],
-correta:3,
-explicacao:"Momento ideal para colheita."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A qualidade depende de:",
-opcoes:["Manejo","Cor","Forma","Som"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; depende do manejo."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A produção envolve:",
-opcoes:["Etapas","Cor","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; envolve várias etapas."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A certificação garante:",
-opcoes:["Origem","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Garante procedência e qualidade."
-},
-{
-tema:"Produção de sementes",
-pergunta:"A produção correta resulta em:",
-opcoes:["Perda","Baixa qualidade","Alta qualidade","Secagem"],
-correta:2,
-explicacao:"Resulta em sementes de alta qualidade."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"A independência da água para a fecundação nas plantas com sementes está relacionada à presença de:", opcoes:["Esporos","Cloroplastos","Estômatos","Pólen"], correta:3, explicacao:"O grão de pólen transporta o gameta masculino até o feminino sem necessidade de água livre, geralmente por vento ou animais."},
 
-{
-tema:"Nutrição de sementes",
-pergunta:"A principal função da reserva nutritiva é:",
-opcoes:["Alimentar o embrião","Proteger","Respirar","Fixar"],
-correta:0,
-explicacao:"A reserva fornece energia para o desenvolvimento inicial."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"O endosperma é responsável por:",
-opcoes:["Respiração","Fixação","Proteção","Armazenamento de nutrientes"],
-correta:3,
-explicacao:"O endosperma armazena nutrientes."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"Os cotilédones têm função de:",
-opcoes:["Respirar","Nutrir","Proteger","Fixar"],
-correta:1,
-explicacao:"Eles auxiliam na nutrição da plântula."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"As reservas podem ser:",
-opcoes:["Água","Ar","Amido, proteínas e lipídios","Luz"],
-correta:2,
-explicacao:"As principais reservas são amido, proteínas e lipídios."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"O amido é um tipo de:",
-opcoes:["Carboidrato","Proteína","Lipídio","Ácido"],
-correta:0,
-explicacao:"O amido é um carboidrato."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"Os lipídios são importantes para:",
-opcoes:["Cor","Forma","Energia","Peso"],
-correta:2,
-explicacao:"Fornecem alta quantidade de energia."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"As proteínas servem para:",
-opcoes:["Formação de tecidos","Cor","Peso","Forma"],
-correta:0,
-explicacao:"Participam da formação de estruturas."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"Durante a germinação, a reserva é:",
-opcoes:["Produzida","Aumentada","Destruída","Consumida"],
-correta:3,
-explicacao:"A reserva é utilizada pelo embrião."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A água ativa:",
-opcoes:["Cor","Metabolismo","Forma","Peso"],
-correta:1,
-explicacao:"Ativa os processos metabólicos."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A nutrição inicial depende de:",
-opcoes:["Solo","Reserva interna","Luz","Ar"],
-correta:1,
-explicacao:"A planta depende das reservas da semente."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"As enzimas atuam na:",
-opcoes:["Proteção","Respiração","Degradação de reservas","Cor"],
-correta:3,
-explicacao:"Quebram reservas para uso do embrião."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A glicose é usada para:",
-opcoes:["Energia","Cor","Forma","Peso"],
-correta:0,
-explicacao:"É fonte de energia."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A respiração usa:",
-opcoes:["Água","Energia","Oxigênio","Solo"],
-correta:2,
-explicacao:"O oxigênio é essencial na respiração."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A nutrição externa começa após:",
-opcoes:["Dormência","Germinação","Secagem","Morte"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; começa após germinação."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A reserva é armazenada em:",
-opcoes:["Cotilédones","Raiz","Caule","Flor"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; ocorre nos cotilédones."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A quebra de reservas fornece:",
-opcoes:["Cor","Energia","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; fornece energia."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A nutrição é essencial para:",
-opcoes:["Crescimento","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Permite desenvolvimento da planta."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"O metabolismo depende de:",
-opcoes:["Cor","Forma","Água","Peso"],
-correta:2,
-explicacao:"A água ativa o metabolismo."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A reserva diminui durante:",
-opcoes:["Dormência","Germinação","Secagem","Armazenamento"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; diminui na germinação."
-},
-{
-tema:"Nutrição de sementes",
-pergunta:"A nutrição garante:",
-opcoes:["Perda","Morte","Desenvolvimento","Secagem"],
-correta:3,
-explicacao:"Permite desenvolvimento da planta."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"As angiospermas diferem das gimnospermas principalmente por:", opcoes:["Produzirem frutos que envolvem as sementes","Não produzirem sementes","Serem exclusivamente aquáticas","Não realizarem fotossíntese"], correta:0, explicacao:"Nas angiospermas, as sementes ficam protegidas dentro de frutos, ao contrário das gimnospermas, onde são expostas."},
 
-{
-tema:"Germinação de sementes",
-pergunta:"A germinação começa com:",
-opcoes:["Luz","Absorção de água","Calor","Ar"],
-correta:1,
-explicacao:"A germinação inicia com a embebição (entrada de água)."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A embebição é:",
-opcoes:["Perda de água","Entrada de água","Respiração","Secagem"],
-correta:1,
-explicacao:"É a absorção de água pela semente."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"Qual fator ativa o metabolismo da semente?",
-opcoes:["Luz","Ar","Temperatura","Água"],
-correta:3,
-explicacao:"A água ativa o metabolismo."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O oxigênio é necessário para:",
-opcoes:["Respiração","Fotossíntese","Proteção","Fixação"],
-correta:0,
-explicacao:"É essencial para a respiração celular."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A temperatura influencia:",
-opcoes:["Cor","Forma","Velocidade da germinação","Peso"],
-correta:2,
-explicacao:"Afeta a velocidade dos processos metabólicos."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A plântula é:",
-opcoes:["Semente","Raiz","Caule","Nova planta jovem"],
-correta:3,
-explicacao:"É a planta recém-germinada."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A germinação depende de:",
-opcoes:["Cor","Água","Som","Metal"],
-correta:1,
-explicacao:"A água é essencial para iniciar o processo."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O primeiro órgão a emergir é:",
-opcoes:["Folha","Caule","Raiz","Flor"],
-correta:2,
-explicacao:"A radícula é a primeira a surgir."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A radícula dará origem à:",
-opcoes:["Raiz","Caule","Folha","Flor"],
-correta:0,
-explicacao:"Forma o sistema radicular."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A luz pode:",
-opcoes:["Impedir sempre","Influenciar germinação","Destruir sementes","Secar"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; na prática pode influenciar."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A água serve para:",
-opcoes:["Proteger","Ativar metabolismo","Secar","Queimar"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; ativa metabolismo."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O processo termina com:",
-opcoes:["Dormência","Plântula formada","Secagem","Morte"],
-correta:3,
-explicacao:"Termina com a formação da plântula."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A germinação ocorre quando:",
-opcoes:["Morre","Cresce","Desenvolve","Ativa"],
-correta:1,
-explicacao:"A semente começa a crescer."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A dormência impede:",
-opcoes:["Crescimento","Germinação","Respiração","Água"],
-correta:1,
-explicacao:"Impede a germinação em condições desfavoráveis."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O embrião usa:",
-opcoes:["Luz","Ar","Reserva","Solo"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; usa reservas."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A germinação depende de:",
-opcoes:["Água","Luz","Oxigênio","Calor"],
-correta:0,
-explicacao:"A água é essencial."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O crescimento inicial é:",
-opcoes:["Lento","Rápido","Nulo","Variável"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; ocorre crescimento."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"A temperatura ideal:",
-opcoes:["Impede","Favorece","Destrói","Seca"],
-correta:3,
-explicacao:"Favorece a germinação."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O oxigênio permite:",
-opcoes:["Fotossíntese","Respiração","Proteção","Cor"],
-correta:1,
-explicacao:"Permite respiração celular."
-},
-{
-tema:"Germinação de sementes",
-pergunta:"O resultado final é:",
-opcoes:["Morte","Secagem","Plântula","Dormência"],
-correta:2,
-explicacao:"Forma-se uma nova planta."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"A evolução das sementes permitiu:", opcoes:["Redução da variabilidade genética","Expansão das plantas em ambientes terrestres","Extinção das pteridófitas","Dependência maior da água"], correta:1, explicacao:"As sementes possibilitaram a colonização de diversos ambientes terrestres, inclusive aqueles com menor disponibilidade de água."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual substância é produzida pela fotossíntese e serve de alimento para a planta?",
-opcoes:["Glicose","Amido","Proteína","Ácido"],
-correta:0,
-explicacao:"A glicose é o principal produto energético produzido na fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"O embrião presente na semente corresponde a:", opcoes:["Estrutura reprodutiva masculina","Nova planta em estágio inicial de desenvolvimento","Parte do fruto","Tecido de reserva"], correta:1, explicacao:"O embrião é a planta jovem formada após a fecundação, que dará origem a um novo indivíduo."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual gás é liberado pelas plantas durante a fotossíntese?",
-opcoes:["Nitrogênio","Oxigênio","Hélio","Metano"],
-correta:1,
-explicacao:"O oxigênio é liberado como subproduto da quebra da água durante a fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"História das sementes", pergunta:"Em relação aos esporos, as sementes apresentam como principal inovação:", opcoes:["Presença de reservas nutritivas e proteção","Menor tamanho","Capacidade de fotossíntese","Produção de flores"], correta:0, explicacao:"As sementes possuem tecidos de reserva e estruturas de proteção que aumentam a sobrevivência do embrião em comparação aos esporos."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Em qual organela celular ocorre a fotossíntese?",
-opcoes:["Mitocôndria","Cloroplasto","Núcleo","Ribossomo"],
-correta:1,
-explicacao:"A fotossíntese ocorre nos cloroplastos, que possuem clorofila."
-},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual parte da planta possui maior quantidade de cloroplastos?",
-opcoes:["Folhas","Raízes","Flores","Frutos"],
-correta:0,
-explicacao:"As folhas são as principais estruturas responsáveis pela fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"Qual é o principal papel ecológico das sementes nos ecossistemas naturais?", opcoes:["Reduzir a competição entre plantas adultas","Permitir a dispersão e colonização de novas áreas","Aumentar a taxa de fotossíntese das plantas","Substituir a reprodução sexuada"], correta:1, explicacao:"As sementes permitem a dispersão e o estabelecimento de plantas em novos locais, contribuindo para a dinâmica e regeneração dos ecossistemas."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual fator é essencial para que ocorra fotossíntese?",
-opcoes:["Luz","Areia","Vento","Sal"],
-correta:0,
-explicacao:"A energia luminosa é necessária para iniciar as reações da fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"Do ponto de vista econômico, as sementes são importantes principalmente porque:", opcoes:["São utilizadas apenas na alimentação animal","Constituem a base da produção agrícola e florestal","Servem exclusivamente para estudos científicos","Substituem fertilizantes naturais"], correta:1, explicacao:"As sementes são a base da produção agrícola e florestal, sendo essenciais para o cultivo de alimentos, fibras e madeira."},
 
-{
-tema:"Fotossíntese",
-pergunta:"A fotossíntese transforma energia luminosa em:",
-opcoes:["Energia elétrica","Energia química","Energia térmica","Energia mecânica"],
-correta:1,
-explicacao:"A luz solar é convertida em energia química armazenada na glicose."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"Na reprodução das plantas, a principal função da semente é:", opcoes:["Realizar fotossíntese inicial","Proteger e nutrir o embrião até a germinação","Atrair polinizadores","Produzir hormônios de crescimento"], correta:1, explicacao:"A semente protege o embrião e fornece reservas nutritivas que sustentam o desenvolvimento inicial até a germinação."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual estrutura da folha permite entrada e saída de gases?",
-opcoes:["Estômatos","Cutícula","Pecíolo","Xilema"],
-correta:0,
-explicacao:"Os estômatos regulam as trocas gasosas da planta."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"A dispersão de sementes contribui diretamente para:", opcoes:["Redução da biodiversidade","Isolamento genético completo das populações","Distribuição espacial das espécies vegetais","Diminuição da reprodução sexuada"], correta:2, explicacao:"A dispersão permite que as plantas ocupem diferentes áreas, influenciando sua distribuição espacial e evitando competição intensa."},
 
-{
-tema:"Fotossíntese",
-pergunta:"A água utilizada na fotossíntese é absorvida principalmente por:",
-opcoes:["Folhas","Flores","Raízes","Frutos"],
-correta:2,
-explicacao:"As raízes absorvem água do solo que será usada na fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"As sementes são essenciais para a regeneração natural de florestas porque:", opcoes:["Produzem oxigênio diretamente","Garantem o estabelecimento de novas plantas","Reduzem a necessidade de luz solar","Eliminam a competição entre espécies"], correta:1, explicacao:"A regeneração natural depende da germinação e do estabelecimento de plântulas originadas de sementes."},
 
-{
-tema:"Fotossíntese",
-pergunta:"A fotossíntese ocorre com maior intensidade durante:",
-opcoes:["Noite","Dia","Inverno","Escuridão"],
-correta:1,
-explicacao:"A presença de luz solar aumenta a taxa de fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"Em termos ecológicos, sementes viáveis acumuladas no solo constituem:", opcoes:["Banco de folhas","Banco de sementes","Reserva mineral","Horizonte orgânico"], correta:1, explicacao:"O banco de sementes do solo é formado por sementes viáveis acumuladas, fundamentais para a regeneração da vegetação."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual pigmento secundário também participa da captura de luz?",
-opcoes:["Carotenoides","Hemoglobina","Melanina","Queratina"],
-correta:0,
-explicacao:"Carotenoides ajudam a captar luz e proteger a clorofila."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"A variabilidade genética nas populações vegetais é favorecida pelas sementes porque:", opcoes:["Eliminam mutações","Resultam de reprodução sexuada com recombinação genética","Impedem cruzamentos","Produzem clones idênticos"], correta:1, explicacao:"As sementes geralmente se originam de reprodução sexuada, promovendo recombinação genética e aumentando a variabilidade."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual composto é formado a partir da fotossíntese e pode ser armazenado pela planta?",
-opcoes:["Amido","Celulose","Proteína","Lignina"],
-correta:0,
-explicacao:"A glicose pode ser convertida em amido para armazenamento."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"Na restauração florestal, o uso de sementes é importante porque:", opcoes:["Substitui totalmente o solo degradado","Permite recompor a vegetação com espécies nativas","Evita a necessidade de luz solar","Elimina a sucessão ecológica"], correta:1, explicacao:"As sementes possibilitam a reintrodução de espécies nativas e o restabelecimento dos processos ecológicos."},
 
-{
-tema:"Fotossíntese",
-pergunta:"A fotossíntese contribui diretamente para:",
-opcoes:["Produção de oxigênio","Produção de ferro","Produção de sal","Produção de petróleo"],
-correta:0,
-explicacao:"O oxigênio liberado na fotossíntese é essencial para a respiração de muitos seres vivos."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"A interação entre animais e sementes é ecologicamente importante porque:", opcoes:["Reduz a germinação","Favorece a dispersão das sementes","Impede o crescimento das plantas","Destrói o embrião"], correta:1, explicacao:"Animais atuam como dispersores, transportando sementes para locais favoráveis à germinação."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual cor de luz é mais absorvida pela clorofila?",
-opcoes:["Verde","Vermelha","Branca","Cinza"],
-correta:1,
-explicacao:"A clorofila absorve principalmente luz vermelha e azul."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Importância das sementes", pergunta:"A importância das sementes na cadeia alimentar está relacionada ao fato de que:", opcoes:["São fonte de alimento para diversos organismos","Produzem oxigênio diretamente","Reduzem a biodiversidade","Substituem outros alimentos"], correta:0, explicacao:"As sementes são ricas em nutrientes e servem como alimento para diversos organismos, integrando as cadeias alimentares."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Por que as folhas geralmente são verdes?",
-opcoes:["Refletem luz verde","Produzem tinta verde","Absorvem luz verde","Produzem clorofila azul"],
-correta:0,
-explicacao:"A clorofila reflete a luz verde e absorve outras cores do espectro."
-},
 
-{
-tema:"Fotossíntese",
-pergunta:"A fase clara da fotossíntese depende diretamente de:",
-opcoes:["Luz","Solo","Raiz","Nitrogênio"],
-correta:0,
-explicacao:"As reações da fase clara utilizam energia luminosa."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"Uma semente pode ser definida corretamente como:", opcoes:["Estrutura formada apenas por tecidos de reserva","Órgão resultante do desenvolvimento do óvulo fecundado contendo embrião","Parte do fruto responsável pela fotossíntese","Estrutura responsável exclusivamente pela dispersão"], correta:1, explicacao:"A semente resulta do desenvolvimento do óvulo fecundado e contém embrião, tegumento e, geralmente, tecidos de reserva."},
 
-{
-tema:"Fotossíntese",
-pergunta:"A fotossíntese é essencial para:",
-opcoes:["Produzir energia elétrica","Manter a vida na Terra","Produzir metais","Formar rochas"],
-correta:1,
-explicacao:"Ela produz alimento e oxigênio para grande parte dos seres vivos."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"Qual estrutura da semente é responsável pela proteção contra danos mecânicos e perda de água?", opcoes:["Tegumento","Endosperma","Embrião","Cotilédones"], correta:0, explicacao:"O tegumento é a camada externa da semente e protege o embrião contra danos físicos e dessecação."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual elemento químico está presente na molécula de clorofila?",
-opcoes:["Magnésio","Ferro","Cálcio","Zinco"],
-correta:0,
-explicacao:"A clorofila possui um átomo central de magnésio."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"O embrião da semente corresponde a:", opcoes:["Tecido de reserva","Estrutura de dispersão","Nova planta em desenvolvimento","Camada protetora"], correta:2, explicacao:"O embrião é a planta em estágio inicial de desenvolvimento, originada após a fecundação."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual processo utiliza a glicose produzida na fotossíntese para gerar energia?",
-opcoes:["Respiração celular","Fermentação","Digestão","Transpiração"],
-correta:0,
-explicacao:"A respiração celular quebra glicose para liberar energia."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"O endosperma tem como principal função:", opcoes:["Realizar trocas gasosas","Proteger o embrião","Atrair dispersores","Armazenar substâncias nutritivas"], correta:3, explicacao:"O endosperma é um tecido de reserva que fornece nutrientes ao embrião durante a germinação."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Plantas realizam fotossíntese principalmente em qual período?",
-opcoes:["Durante o dia","Somente à noite","Apenas no inverno","Somente no verão"],
-correta:0,
-explicacao:"A presença de luz solar durante o dia permite a realização da fotossíntese."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"Em sementes florestais, a variabilidade estrutural está relacionada principalmente a:", opcoes:["Tipo de solo onde a planta cresce","Espécie e adaptação ecológica","Quantidade de luz disponível","Idade da planta-mãe"], correta:1, explicacao:"A estrutura das sementes varia entre espécies como resultado de adaptações evolutivas aos diferentes ambientes."},
 
-{
-tema:"Fotossíntese",
-pergunta:"Qual pigmento capta luz?",
-opcoes:["Clorofila","Lignina","Celulose","Suberina"],
-correta:0,
-explicacao:"A clorofila é o pigmento responsável por absorver energia luminosa."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"Os cotilédones nas sementes têm como principal função:", opcoes:["Proteção externa da semente","Armazenamento e/ou transferência de reservas ao embrião","Dispersão pelo vento","Produção de gametas"], correta:1, explicacao:"Os cotilédones podem armazenar reservas ou transferir nutrientes ao embrião durante a germinação."},
 
-{
-tema:"Armazenamento de sementes",
-pergunta:"O principal objetivo do armazenamento é:",
-opcoes:["Manter viabilidade","Secar totalmente","Destruir sementes","Aumentar peso"],
-correta:0,
-explicacao:"O armazenamento visa manter a capacidade de germinação."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A umidade elevada causa:",
-opcoes:["Conservação","Proteção","Crescimento","Deterioração"],
-correta:3,
-explicacao:"Alta umidade favorece a deterioração."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A temperatura ideal deve ser:",
-opcoes:["Alta","Controlada","Extrema","Irrelevante"],
-correta:1,
-explicacao:"Temperaturas controladas preservam a qualidade."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O armazenamento inadequado leva à:",
-opcoes:["Qualidade","Germinação","Perda de viabilidade","Proteção"],
-correta:2,
-explicacao:"Reduz a capacidade de germinar."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O ambiente ideal é:",
-opcoes:["Seco","Úmido","Quente","Aberto"],
-correta:0,
-explicacao:"Ambientes secos são ideais."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A ventilação adequada evita:",
-opcoes:["Cor","Peso","Mofo","Forma"],
-correta:2,
-explicacao:"Evita desenvolvimento de fungos."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"As sementes devem ser armazenadas em:",
-opcoes:["Recipientes adequados","Qualquer lugar","Solo","Água"],
-correta:0,
-explicacao:"Recipientes adequados protegem as sementes."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O controle de pragas evita:",
-opcoes:["Crescimento","Danos","Secagem","Proteção"],
-correta:3,
-explicacao:"Evita danos às sementes."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A baixa temperatura:",
-opcoes:["Conserva","Destrói","Aumenta","Seca"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; na prática ajuda a conservar."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O tempo de armazenamento influencia:",
-opcoes:["Cor","Viabilidade","Forma","Peso"],
-correta:1,
-explicacao:"Afeta a capacidade de germinar."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A deterioração é causada por:",
-opcoes:["Proteção","Armazenamento correto","Condições inadequadas","Controle"],
-correta:3,
-explicacao:"Condições ruins causam deterioração."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A umidade deve ser:",
-opcoes:["Controlada","Alta","Variável","Irrelevante"],
-correta:0,
-explicacao:"Controle de umidade é essencial."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A embalagem protege contra:",
-opcoes:["Luz","Água","Danos","Ar"],
-correta:2,
-explicacao:"Protege contra danos físicos."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O armazenamento prolongado causa:",
-opcoes:["Melhora","Crescimento","Proteção","Deterioração"],
-correta:3,
-explicacao:"Reduz qualidade com o tempo."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A qualidade depende de:",
-opcoes:["Manejo","Cor","Forma","Peso"],
-correta:1,
-explicacao:"O manejo influencia diretamente."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O calor excessivo:",
-opcoes:["Ajuda","Conserva","Deteriora","Protege"],
-correta:2,
-explicacao:"Acelera a deterioração."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A conservação depende de:",
-opcoes:["Condições adequadas","Cor","Forma","Som"],
-correta:0,
-explicacao:"Condições corretas mantêm qualidade."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A luz pode:",
-opcoes:["Ajudar","Deteriorar","Proteger","Fixar"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; pode influenciar negativamente."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"O armazenamento correto garante:",
-opcoes:["Perda","Qualidade","Secagem","Morte"],
-correta:0,
-explicacao:"Mantém qualidade das sementes."
-},
-{
-tema:"Armazenamento de sementes",
-pergunta:"A finalidade final é:",
-opcoes:["Destruição","Secagem","Perda","Uso futuro"],
-correta:3,
-explicacao:"Permitir uso posterior com qualidade."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"Uma característica comum das sementes florestais em comparação às agrícolas é:", opcoes:["Ausência de embrião","Maior variabilidade genética e fisiológica","Ausência de tegumento","Uniformidade estrutural"], correta:1, explicacao:"Sementes florestais geralmente apresentam maior variabilidade genética e comportamento fisiológico menos uniforme que sementes agrícolas."},
 
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A nutrição mineral refere-se à absorção de:",
-opcoes:["Luz","Água","Sais minerais","Ar"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; refere-se principalmente aos sais minerais."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"Os nutrientes minerais são absorvidos principalmente pelas:",
-opcoes:["Folhas","Flores","Raízes","Frutos"],
-correta:2,
-explicacao:"As raízes são responsáveis pela absorção."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A água transporta nutrientes através do:",
-opcoes:["Xilema","Floema","Estômato","Cloroplasto"],
-correta:0,
-explicacao:"O xilema transporta água e sais minerais."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O nitrogênio é importante para:",
-opcoes:["Cor","Proteínas","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; participa da formação de proteínas."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O fósforo atua na:",
-opcoes:["Energia","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Participa do ATP e transferência de energia."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O potássio regula:",
-opcoes:["Cor","Forma","Peso","Equilíbrio hídrico"],
-correta:3,
-explicacao:"Regula abertura de estômatos e água."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"Macronutrientes são necessários em:",
-opcoes:["Pequenas quantidades","Grandes quantidades","Médias quantidades","Nenhuma quantidade"],
-correta:1,
-explicacao:"São exigidos em maiores quantidades."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"Micronutrientes são necessários em:",
-opcoes:["Grandes quantidades","Pequenas quantidades","Médias quantidades","Nenhuma"],
-correta:1,
-explicacao:"São necessários em pequenas quantidades."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A deficiência de nutrientes causa:",
-opcoes:["Crescimento","Desenvolvimento","Melhoria","Sintomas visíveis"],
-correta:3,
-explicacao:"Provoca sintomas como clorose."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A clorose é:",
-opcoes:["Amarelamento","Crescimento","Secagem","Proteção"],
-correta:0,
-explicacao:"É o amarelecimento das folhas."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O cálcio atua na:",
-opcoes:["Respiração","Estrutura celular","Cor","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; atua na estrutura celular."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O magnésio é componente da:",
-opcoes:["Raiz","Clorofila","Caule","Flor"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; faz parte da clorofila."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O enxofre participa da:",
-opcoes:["Proteínas","Cor","Forma","Peso"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; participa da formação de proteínas."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A absorção ocorre por:",
-opcoes:["Difusão","Transporte ativo","Respiração","Fotossíntese"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; ocorre por difusão e transporte ativo."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O solo fornece:",
-opcoes:["Sais minerais","Luz","Ar","Calor"],
-correta:0,
-explicacao:"Fonte de nutrientes minerais."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A adubação serve para:",
-opcoes:["Secar","Fornecer nutrientes","Destruir","Reduzir"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; serve para fornecer nutrientes."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"O pH do solo influencia:",
-opcoes:["Absorção","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Afeta disponibilidade de nutrientes."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A deficiência de ferro causa:",
-opcoes:["Crescimento","Clorose","Forma","Peso"],
-correta:3,
-explicacao:"Provoca amarelecimento das folhas."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"Os nutrientes essenciais são:",
-opcoes:["Dispensáveis","Indispensáveis","Opcionais","Inúteis"],
-correta:1,
-explicacao:"São necessários para o ciclo de vida."
-},
-{
-tema:"Nutrição mineral de plantas",
-pergunta:"A nutrição adequada garante:",
-opcoes:["Morte","Desenvolvimento","Perda","Secagem"],
-correta:1,
-explicacao:"Permite crescimento saudável."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"O tegumento da semente origina-se a partir de:", opcoes:["Embrião","Óvulo (integumentos)","Endosperma","Fruto"], correta:1, explicacao:"O tegumento se desenvolve a partir dos integumentos do óvulo após a fecundação."},
 
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O solo fornece principalmente:",
-opcoes:["Luz","Água","Ar","Nutrientes minerais"],
-correta:3,
-explicacao:"O solo é a principal fonte de nutrientes minerais."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"Os nutrientes são absorvidos pelas plantas através das:",
-opcoes:["Raízes","Folhas","Flores","Frutos"],
-correta:0,
-explicacao:"As raízes absorvem água e nutrientes."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A fertilidade do solo refere-se à:",
-opcoes:["Cor","Forma","Capacidade de fornecer nutrientes","Peso"],
-correta:2,
-explicacao:"Indica a capacidade de nutrir as plantas."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A matéria orgânica melhora:",
-opcoes:["Cor","Forma","Peso","Fertilidade"],
-correta:3,
-explicacao:"Aumenta a disponibilidade de nutrientes."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O pH do solo influencia:",
-opcoes:["Cor","Disponibilidade de nutrientes","Forma","Peso"],
-correta:1,
-explicacao:"Afeta a absorção de nutrientes."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O solo argiloso tem maior:",
-opcoes:["Areia","Retenção de água","Cor","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; na prática tem maior retenção de água."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O solo arenoso apresenta:",
-opcoes:["Alta retenção","Baixa retenção de água","Alta fertilidade","Alta umidade"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; na prática tem baixa retenção."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A adubação orgânica utiliza:",
-opcoes:["Produtos químicos","Resíduos naturais","Plástico","Metal"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; utiliza matéria orgânica."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A adubação mineral fornece:",
-opcoes:["Nutrientes específicos","Água","Ar","Luz"],
-correta:0,
-explicacao:"Fornece nutrientes essenciais."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A lixiviação causa:",
-opcoes:["Retenção","Perda de nutrientes","Ganho","Fixação"],
-correta:3,
-explicacao:"Ocorre perda de nutrientes com a água."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A CTC está relacionada à:",
-opcoes:["Cor","Capacidade de troca de cátions","Forma","Peso"],
-correta:1,
-explicacao:"Indica retenção de nutrientes no solo."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O húmus é:",
-opcoes:["Areia","Matéria orgânica decomposta","Água","Ar"],
-correta:1,
-explicacao:"Resultado da decomposição orgânica."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A fertilidade depende de:",
-opcoes:["Clima","Manejo","Forma","Cor"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; depende de vários fatores."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A erosão causa:",
-opcoes:["Perda de solo","Aumento","Proteção","Fixação"],
-correta:0,
-explicacao:"Remove nutrientes e camada fértil."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O calcário é usado para:",
-opcoes:["Adubar","Corrigir pH","Secar","Destruir"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; corrige acidez do solo."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A salinização causa:",
-opcoes:["Melhora","Deterioração","Proteção","Fixação"],
-correta:3,
-explicacao:"Prejudica o crescimento das plantas."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A água no solo ajuda na:",
-opcoes:["Absorção","Cor","Forma","Peso"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; auxilia na absorção."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O solo é formado por:",
-opcoes:["Minerais","Cor","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; composto por minerais, água e ar."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"A fertilização aumenta:",
-opcoes:["Produtividade","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Melhora a produção agrícola."
-},
-{
-tema:"Solo como fornecedor de nutrientes",
-pergunta:"O solo ideal possui:",
-opcoes:["Baixa fertilidade","Boa estrutura","Alta acidez","Pouca água"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; ideal tem boa estrutura e fertilidade."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"A variação no tamanho e forma das sementes florestais está principalmente associada a:", opcoes:["Processos industriais","Adaptações ecológicas e estratégias de dispersão","Padronização genética","Controle humano"], correta:1, explicacao:"A diversidade de formas e tamanhos reflete adaptações a diferentes mecanismos de dispersão e ambientes."},
 
-{
-tema:"Química do solo",
-pergunta:"A química do solo estuda:",
-opcoes:["Composição e reações do solo","Somente cor","Somente textura","Somente organismos"],
-correta:0,
-explicacao:"Analisa os elementos químicos e suas interações no solo."
-},
-{
-tema:"Química do solo",
-pergunta:"O pH do solo indica:",
-opcoes:["Fertilidade","Textura","Cor","Acidez ou alcalinidade"],
-correta:3,
-explicacao:"O pH mede o nível de acidez ou alcalinidade."
-},
-{
-tema:"Química do solo",
-pergunta:"Um solo ácido possui pH:",
-opcoes:["Acima de 7","Igual a 7","Abaixo de 7","Maior que 10"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; solos ácidos têm pH abaixo de 7."
-},
-{
-tema:"Química do solo",
-pergunta:"A calagem serve para:",
-opcoes:["Aumentar acidez","Corrigir pH","Secar o solo","Reduzir nutrientes"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; a calagem corrige a acidez."
-},
-{
-tema:"Química do solo",
-pergunta:"A matéria orgânica melhora:",
-opcoes:["Fertilidade","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Aumenta a disponibilidade de nutrientes."
-},
-{
-tema:"Química do solo",
-pergunta:"A CTC significa:",
-opcoes:["Capacidade total de carbono","Capacidade de troca de cátions","Controle de temperatura","Cor do terreno"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; significa capacidade de troca de cátions."
-},
-{
-tema:"Química do solo",
-pergunta:"A CTC indica:",
-opcoes:["Capacidade de reter nutrientes","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Mostra quanto o solo pode reter nutrientes."
-},
-{
-tema:"Química do solo",
-pergunta:"Os cátions são:",
-opcoes:["Negativos","Neutros","Pesados","Íons positivos"],
-correta:3,
-explicacao:"Cátions possuem carga positiva."
-},
-{
-tema:"Química do solo",
-pergunta:"Os ânions são:",
-opcoes:["Íons negativos","Íons positivos","Neutros","Metais"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; ânions são negativos."
-},
-{
-tema:"Química do solo",
-pergunta:"A lixiviação provoca:",
-opcoes:["Acúmulo","Perda de nutrientes","Proteção","Fixação"],
-correta:1,
-explicacao:"A água leva nutrientes para camadas profundas."
-},
-{
-tema:"Química do solo",
-pergunta:"O alumínio em excesso causa:",
-opcoes:["Crescimento","Toxicidade","Melhoria","Proteção"],
-correta:3,
-explicacao:"Pode ser tóxico para plantas."
-},
-{
-tema:"Química do solo",
-pergunta:"O fósforo no solo é:",
-opcoes:["Altamente móvel","Pouco móvel","Gasoso","Inútil"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; na prática é pouco móvel."
-},
-{
-tema:"Química do solo",
-pergunta:"A disponibilidade de nutrientes depende do:",
-opcoes:["pH","Cor","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; depende principalmente do pH."
-},
-{
-tema:"Química do solo",
-pergunta:"O potássio no solo é:",
-opcoes:["Imóvel","Pouco móvel","Altamente móvel","Gasoso"],
-correta:3,
-explicacao:"Tem mobilidade moderada a alta."
-},
-{
-tema:"Química do solo",
-pergunta:"A matéria orgânica fornece:",
-opcoes:["Nutrientes","Luz","Cor","Forma"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; fornece nutrientes."
-},
-{
-tema:"Química do solo",
-pergunta:"A acidez do solo pode ser corrigida com:",
-opcoes:["Água","Calcário","Areia","Sal"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; usa-se calcário."
-},
-{
-tema:"Química do solo",
-pergunta:"A saturação por bases indica:",
-opcoes:["Fertilidade","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Relaciona-se à fertilidade do solo."
-},
-{
-tema:"Química do solo",
-pergunta:"A análise de solo serve para:",
-opcoes:["Cor","Forma","Avaliar nutrientes","Peso"],
-correta:2,
-explicacao:"Determina a fertilidade."
-},
-{
-tema:"Química do solo",
-pergunta:"O nitrogênio no solo pode ser perdido por:",
-opcoes:["Fixação","Volatilização","Cor","Forma"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; pode ser perdido por volatilização."
-},
-{
-tema:"Química do solo",
-pergunta:"A fertilidade química depende de:",
-opcoes:["Cor","Forma","Peso","Nutrientes disponíveis"],
-correta:3,
-explicacao:"Depende da disponibilidade de nutrientes."
-},
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Conceito e características de sementes florestais", pergunta:"A composição básica de uma semente inclui:", opcoes:["Embrião, tegumento e tecido de reserva","Raiz, caule e folhas","Flor, fruto e semente","Xilema, floema e câmbio"], correta:0, explicacao:"Uma semente é composta essencialmente por embrião, tegumento e, na maioria dos casos, tecidos de reserva."},
 
-{
-tema:"Fertilidade do solo",
-pergunta:"A fertilidade do solo refere-se à:",
-opcoes:["Cor do solo","Capacidade de fornecer nutrientes","Textura","Temperatura"],
-correta:1,
-explicacao:"Refere-se à capacidade do solo de fornecer nutrientes às plantas."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"Um solo fértil possui:",
-opcoes:["Poucos nutrientes","Boa disponibilidade de nutrientes","Baixa umidade","Alta acidez"],
-correta:1,
-explicacao:"Solos férteis têm nutrientes disponíveis para as plantas."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A matéria orgânica contribui para:",
-opcoes:["Cor","Forma","Peso","Fertilidade"],
-correta:3,
-explicacao:"Melhora a fertilidade e estrutura do solo."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A adubação serve para:",
-opcoes:["Fornecer nutrientes","Secar o solo","Reduzir crescimento","Destruir plantas"],
-correta:0,
-explicacao:"Adubação fornece nutrientes essenciais."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A fertilidade depende do:",
-opcoes:["Somente clima","Somente cor","Disponibilidade de nutrientes","Somente água"],
-correta:2,
-explicacao:"Depende da quantidade de nutrientes disponíveis."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A calagem é usada para:",
-opcoes:["Aumentar acidez","Secar solo","Corrigir pH","Reduzir nutrientes"],
-correta:3,
-explicacao:"Corrige a acidez do solo."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"O pH ideal favorece:",
-opcoes:["Absorção de nutrientes","Cor","Forma","Peso"],
-correta:1,
-explicacao:"Favorece a disponibilidade de nutrientes."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A CTC indica:",
-opcoes:["Cor","Forma","Capacidade de reter nutrientes","Peso"],
-correta:2,
-explicacao:"Relaciona-se à retenção de nutrientes."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A fertilidade pode ser melhorada com:",
-opcoes:["Manejo adequado","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Boas práticas aumentam fertilidade."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A lixiviação causa:",
-opcoes:["Retenção","Perda de nutrientes","Ganho","Fixação"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; causa perda de nutrientes."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"O solo pobre apresenta:",
-opcoes:["Alta fertilidade","Baixa fertilidade","Alta produção","Boa estrutura"],
-correta:0,
-explicacao:"Foi ajustado ao padrão; apresenta baixa fertilidade."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A adubação orgânica utiliza:",
-opcoes:["Produtos químicos","Matéria orgânica","Plástico","Metal"],
-correta:3,
-explicacao:"Utiliza resíduos naturais."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A fertilidade influencia:",
-opcoes:["Cor","Crescimento das plantas","Forma","Peso"],
-correta:1,
-explicacao:"Afeta diretamente o crescimento."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"O nitrogênio é importante para:",
-opcoes:["Cor","Proteínas","Forma","Peso"],
-correta:1,
-explicacao:"Participa da formação de proteínas."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"O fósforo está ligado à:",
-opcoes:["Energia","Cor","Forma","Peso"],
-correta:3,
-explicacao:"Foi ajustado ao padrão; está ligado à energia."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"O potássio regula:",
-opcoes:["Água","Cor","Forma","Peso"],
-correta:0,
-explicacao:"Regula o equilíbrio hídrico."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A matéria orgânica melhora:",
-opcoes:["Cor","Fertilidade","Forma","Peso"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; melhora fertilidade."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A análise de solo avalia:",
-opcoes:["Cor","Forma","Nutrientes","Peso"],
-correta:3,
-explicacao:"Avalia a disponibilidade de nutrientes."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A fertilidade adequada garante:",
-opcoes:["Produção","Cor","Forma","Peso"],
-correta:1,
-explicacao:"Foi ajustado ao padrão; garante produção."
-},
-{
-tema:"Fertilidade do solo",
-pergunta:"A fertilidade é essencial para:",
-opcoes:["Morte","Crescimento","Perda","Secagem"],
-correta:2,
-explicacao:"Foi ajustado ao padrão; permite crescimento."
-}
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"A polinização pode ser definida como:", opcoes:["Fusão dos gametas masculinos e femininos","Transferência do grão de pólen até o estigma","Formação do embrião dentro do óvulo","Desenvolvimento do fruto após fecundação"], correta:1, explicacao:"Polinização é o processo de transferência do pólen das anteras até o estigma da flor, etapa anterior à fecundação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"A fecundação nas plantas com sementes ocorre quando:", opcoes:["O pólen atinge o estigma","O gameta masculino se funde ao gameta feminino no óvulo","O fruto começa a se desenvolver","O óvulo se transforma em semente"], correta:1, explicacao:"A fecundação ocorre com a fusão do gameta masculino com o feminino dentro do óvulo, formando o zigoto."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"Após a fecundação, o óvulo se desenvolve originando:", opcoes:["O fruto","A flor","A semente","O pólen"], correta:2, explicacao:"Após a fecundação, o óvulo se transforma em semente, contendo embrião, tegumento e, geralmente, tecido de reserva."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"O fruto nas angiospermas se origina a partir de:", opcoes:["Óvulo","Tegumento","Endosperma","Ovário"], correta:3, explicacao:"O fruto se desenvolve a partir do ovário da flor após a fecundação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"O tubo polínico tem como função principal:", opcoes:["Proteger o pólen","Transportar o gameta masculino até o óvulo","Produzir gametas femininos","Formar o tegumento"], correta:1, explicacao:"O tubo polínico cresce a partir do grão de pólen e conduz os gametas masculinos até o óvulo."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"Nas angiospermas, a dupla fecundação resulta na formação de:", opcoes:["Dois embriões","Embrião e fruto","Embrião e endosperma","Tegumento e fruto"], correta:2, explicacao:"Um gameta masculino forma o zigoto (embrião) e o outro se funde com núcleos polares, originando o endosperma."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"O tegumento da semente se origina a partir de:", opcoes:["Endosperma","Embrião","Integumentos do óvulo","Ovário"], correta:2, explicacao:"O tegumento se forma a partir dos integumentos do óvulo após a fecundação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"A polinização realizada por animais é denominada:", opcoes:["Anemofilia","Hidrofília","Zoofilia","Autogamia"], correta:2, explicacao:"Zoofilia é a polinização mediada por animais, como insetos, aves e morcegos."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"A germinação da semente ocorre somente após:", opcoes:["A polinização","A formação do fruto","A fecundação e maturação fisiológica da semente","A queda da flor"], correta:2, explicacao:"A germinação só ocorre após a semente completar seu desenvolvimento e atingir maturidade fisiológica."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Formação de sementes", pergunta:"A autopolinização ocorre quando:", opcoes:["O pólen é transferido entre indivíduos diferentes","O pólen é transportado pelo vento","O pólen da mesma flor ou planta atinge o próprio estigma","Ocorre fecundação entre espécies diferentes"], correta:2, explicacao:"Na autopolinização, o pólen fecunda o estigma da própria flor ou de outra flor da mesma planta."},
+
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"O principal componente estrutural responsável pelo desenvolvimento da nova planta é:", opcoes:["Endosperma","Tegumento","Embrião","Pericarpo"], correta:2, explicacao:"O embrião é a estrutura que dará origem à nova planta durante a germinação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"O metabolismo das sementes durante a fase de dormência é caracterizado por:", opcoes:["Alta atividade respiratória","Atividade metabólica reduzida","Intensa divisão celular","Produção ativa de clorofila"], correta:1, explicacao:"Durante a dormência, as sementes mantêm metabolismo reduzido, o que contribui para a conservação da viabilidade."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"As principais substâncias de reserva encontradas nas sementes são:", opcoes:["Vitaminas e sais minerais","Hormônios vegetais","Carboidratos, lipídios e proteínas","Ácidos nucleicos"], correta:2, explicacao:"As reservas das sementes são compostas principalmente por carboidratos, lipídios e proteínas, que fornecem energia ao embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"O vigor das sementes pode ser definido como:", opcoes:["Capacidade de produzir flores rapidamente","Quantidade total de reservas armazenadas","Tempo de dormência","Capacidade de germinar e se estabelecer sob diferentes condições ambientais"], correta:3, explicacao:"O vigor expressa o desempenho da semente, incluindo velocidade de germinação, uniformidade e capacidade de estabelecimento."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"Durante a germinação, a principal fonte inicial de energia para o embrião é:", opcoes:["Fotossíntese","Reservas armazenadas na semente","Absorção direta de nutrientes do solo","Atividade microbiana externa"], correta:1, explicacao:"O embrião utiliza as reservas internas da semente até que a plântula se torne autotrófica."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"Sementes com elevado teor de lipídios são caracterizadas por:", opcoes:["Baixa densidade energética","Alta densidade energética","Ausência de reservas","Baixa eficiência metabólica"], correta:1, explicacao:"Os lipídios possuem alta densidade energética, sendo uma importante fonte de energia durante a germinação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"O processo inicial de absorção de água pela semente é denominado:", opcoes:["Transpiração","Imbibição","Respiração","Difusão"], correta:1, explicacao:"A imbibição é a absorção física de água pelos tecidos da semente, etapa inicial da germinação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"Durante a germinação, a principal função das enzimas ativadas é:", opcoes:["Produzir tegumento","Degradar reservas nutritivas","Formar estruturas reprodutivas","Induzir dispersão"], correta:1, explicacao:"As enzimas hidrolíticas degradam as reservas, disponibilizando nutrientes para o crescimento do embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"O tegumento pode influenciar a germinação ao:", opcoes:["Produzir reservas nutritivas","Regular a entrada de água e gases","Realizar fotossíntese","Originar o embrião"], correta:1, explicacao:"O tegumento controla a permeabilidade da semente, influenciando a imbibição e as trocas gasosas."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Biologia de sementes", pergunta:"Sementes com alto vigor são caracterizadas por:", opcoes:["Germinação lenta e desuniforme","Maior tolerância a condições adversas e germinação uniforme","Baixa capacidade de estabelecimento","Alta sensibilidade ambiental"], correta:1, explicacao:"Sementes vigorosas apresentam germinação rápida, uniforme e maior capacidade de estabelecimento em condições variadas."},
+
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"Sementes ortodoxas são caracterizadas principalmente por:", opcoes:["Perderem viabilidade rapidamente","Tolerarem dessecação e armazenamento prolongado","Germinarem ainda na planta-mãe","Serem sempre dispersas por animais"], correta:1, explicacao:"Sementes ortodoxas toleram a dessecação e podem ser armazenadas por longos períodos sem perda significativa de viabilidade."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"Sementes recalcitrantes apresentam como principal característica:", opcoes:["Alta tolerância à dessecação","Baixa sensibilidade à temperatura","Sensibilidade à dessecação e curta longevidade","Capacidade de armazenamento prolongado"], correta:2, explicacao:"Sementes recalcitrantes são sensíveis à dessecação e apresentam curta viabilidade, dificultando o armazenamento."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"Sementes intermediárias apresentam comportamento:", opcoes:["Idêntico às ortodoxas","Totalmente igual às recalcitrantes","Tolerância parcial à dessecação e armazenamento limitado","Sem relação com armazenamento"], correta:2, explicacao:"Sementes intermediárias apresentam tolerância parcial à dessecação e menor capacidade de armazenamento que as ortodoxas."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"A anemocoria refere-se à dispersão de sementes por:", opcoes:["Água","Animais","Gravidade","Vento"], correta:3, explicacao:"Anemocoria é a dispersão realizada pelo vento."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"A zoocoria é caracterizada pela dispersão de sementes por:", opcoes:["Vento","Animais","Água","Explosão do fruto"], correta:1, explicacao:"Zoocoria ocorre quando animais transportam sementes, seja aderidas ao corpo ou após ingestão."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"A hidrocoria está relacionada à dispersão por:", opcoes:["Vento","Animais","Água","Solo"], correta:2, explicacao:"Hidrocoria é a dispersão de sementes pela água, comum em ambientes aquáticos ou alagados."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"Sementes com alta longevidade em armazenamento são geralmente:", opcoes:["Recalcitrantes","Intermediárias","Ortodoxas","Imaturas"], correta:2, explicacao:"Sementes ortodoxas apresentam maior longevidade devido à tolerância à dessecação e ao armazenamento em condições controladas."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"A barocoria é um tipo de dispersão que ocorre por:", opcoes:["Animais","Vento","Água","Gravidade"], correta:3, explicacao:"Na barocoria, as sementes se dispersam pela ação da gravidade, caindo próximas à planta-mãe."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"Sementes recalcitrantes são mais frequentemente encontradas em espécies de ambientes:", opcoes:["Áridos","Temperados frios","Tropicais úmidos","Desérticos"], correta:2, explicacao:"Sementes recalcitrantes são mais comuns em espécies de ambientes tropicais úmidos, onde a dessecação não é um fator limitante frequente."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Tipos de sementes", pergunta:"A classificação fisiológica das sementes baseia-se principalmente em:", opcoes:["Cor e tamanho","Comportamento em relação à dessecação e armazenamento","Forma do fruto","Tipo de raiz"], correta:1, explicacao:"A classificação fisiológica considera a resposta das sementes à dessecação e ao armazenamento, distinguindo ortodoxas, recalcitrantes e intermediárias."},
+
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A seleção de árvores matrizes deve priorizar indivíduos que apresentem:", opcoes:["Baixo crescimento","Alta produtividade e características fenotípicas desejáveis","Idade avançada apenas","Presença de pragas"], correta:1, explicacao:"Árvores matrizes devem apresentar características superiores, como vigor, sanidade e alta produção de sementes."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"O principal objetivo do manejo de matrizes é:", opcoes:["Reduzir a variabilidade genética","Aumentar a altura das árvores","Garantir qualidade genética e fisiológica das sementes","Diminuir a produção de sementes"], correta:2, explicacao:"O manejo adequado assegura sementes com boa qualidade genética e desempenho fisiológico."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A coleta de sementes deve ser realizada preferencialmente quando:", opcoes:["As sementes ainda estão imaturas","A planta está em crescimento vegetativo","As folhas caem completamente","Os frutos apresentam maturidade fisiológica"], correta:3, explicacao:"A maturidade fisiológica garante máximo vigor e viabilidade das sementes."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A sanidade de sementes refere-se principalmente à:", opcoes:["Ausência de patógenos e danos","Cor uniforme das sementes","Tamanho das sementes","Capacidade de dispersão"], correta:0, explicacao:"Sanidade envolve ausência de patógenos e danos físicos."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A padronização de sementes tem como objetivo principal:", opcoes:["Aumentar o peso total","Uniformizar características físicas e fisiológicas do lote","Eliminar sementes grandes","Reduzir a variabilidade genética"], correta:1, explicacao:"A padronização busca uniformidade para facilitar manejo e semeadura."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A qualidade fisiológica das sementes está diretamente relacionada a:", opcoes:["Cor externa","Altura da planta-mãe","Capacidade de germinação e vigor","Tipo de solo"], correta:2, explicacao:"Qualidade fisiológica envolve germinação e vigor."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"Evitar sementes de plantas doentes durante a coleta é importante para:", opcoes:["Aumentar o tamanho das sementes","Facilitar a dispersão","Reduzir custos de transporte","Garantir sanidade do lote"], correta:3, explicacao:"Evita contaminação por patógenos."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A mistura de sementes de diferentes matrizes contribui para:", opcoes:["Aumentar a diversidade genética do lote","Reduzir variabilidade genética","Diminuir a germinação","Padronizar tamanho"], correta:0, explicacao:"Aumenta variabilidade genética."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"O beneficiamento de sementes envolve principalmente:", opcoes:["Polinização e fecundação","Limpeza, secagem e classificação","Germinação e crescimento","Fotossíntese e respiração"], correta:1, explicacao:"Processos pós-coleta para melhorar qualidade."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Produção de sementes", pergunta:"A qualidade genética das sementes depende principalmente:", opcoes:["Do ambiente de armazenamento","Do tipo de solo","Das características das árvores matrizes","Da quantidade de água"], correta:2, explicacao:"Depende da seleção das matrizes."},
+
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"Durante o desenvolvimento da semente, os nutrientes são provenientes principalmente de:", opcoes:["Fotossíntese do embrião","Planta-mãe via tecidos vasculares","Solo diretamente","Microrganismos associados"], correta:1, explicacao:"Os nutrientes são fornecidos pela planta-mãe através dos tecidos vasculares durante o desenvolvimento da semente."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"O principal tecido responsável pelo armazenamento de nutrientes em muitas sementes é:", opcoes:["Tegumento","Embrião","Endosperma","Pericarpo"], correta:2, explicacao:"O endosperma atua como principal tecido de reserva em muitas sementes, armazenando nutrientes para o embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"Durante a germinação, as reservas nutritivas são mobilizadas principalmente para:", opcoes:["Produção de flores","Formação de frutos","Desenvolvimento do embrião","Dispersão da semente"], correta:2, explicacao:"As reservas são utilizadas para sustentar o crescimento do embrião até a plântula se tornar autotrófica."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"Sementes ricas em amido utilizam principalmente qual composto como fonte de energia?", opcoes:["Carboidratos","Proteínas","Lipídios","Vitaminas"], correta:0, explicacao:"O amido é um carboidrato e atua como importante fonte de energia durante a germinação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"A mobilização de reservas lipídicas durante a germinação envolve principalmente:", opcoes:["Fotossíntese","Conversão em açúcares utilizáveis","Absorção direta do solo","Produção de clorofila"], correta:1, explicacao:"Lipídios são convertidos em açúcares por vias metabólicas, fornecendo energia ao embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"As proteínas armazenadas nas sementes têm como principal função:", opcoes:["Produzir energia diretamente","Atuar como reserva de nitrogênio e aminoácidos","Formar o tegumento","Controlar a dispersão"], correta:1, explicacao:"Proteínas são degradadas em aminoácidos, utilizados na síntese de novas estruturas durante o crescimento."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"Durante a imbibição, a entrada de água na semente permite:", opcoes:["Interromper o metabolismo","Iniciar processos metabólicos e enzimáticos","Reduzir a respiração","Eliminar reservas"], correta:1, explicacao:"A água ativa enzimas e reativa o metabolismo necessário para a germinação."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"O papel das enzimas na nutrição da semente durante a germinação é:", opcoes:["Produzir tegumento","Degradar reservas nutritivas","Formar pólen","Promover dispersão"], correta:1, explicacao:"As enzimas hidrolisam reservas, liberando nutrientes para o embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"Sementes com maior quantidade de reservas nutritivas tendem a apresentar:", opcoes:["Menor vigor","Maior capacidade de estabelecimento inicial","Menor taxa de germinação","Dependência imediata de fotossíntese"], correta:1, explicacao:"Mais reservas permitem melhor desenvolvimento inicial da plântula."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Nutrição de sementes", pergunta:"Durante a pré-germinação, o consumo de reservas ocorre principalmente por meio de:", opcoes:["Fotossíntese","Respiração celular","Absorção de nutrientes do solo","Transpiração"], correta:1, explicacao:"A respiração celular converte reservas em energia utilizável para o crescimento do embrião."},
+
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A germinação de sementes inicia-se principalmente com:", opcoes:["Produção de folhas","Absorção de água (imbibição)","Ativação da fotossíntese","Formação do fruto"], correta:1, explicacao:"A imbibição é a primeira etapa da germinação, permitindo a reativação do metabolismo da semente."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A quebra de dormência em sementes tem como principal objetivo:", opcoes:["Aumentar o tamanho da semente","Permitir o início da germinação em condições favoráveis","Reduzir o teor de água","Estimular a dispersão"], correta:1, explicacao:"A dormência impede a germinação até que condições ambientais adequadas sejam atingidas."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"Durante a germinação, a primeira estrutura a emergir geralmente é:", opcoes:["Plúmula","Cotilédone","Radícula","Endosperma"], correta:2, explicacao:"A radícula é a primeira estrutura a emergir, originando a raiz primária."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A ativação metabólica na germinação resulta principalmente em:", opcoes:["Aumento da respiração celular","Redução do consumo de energia","Interrupção enzimática","Formação imediata de flores"], correta:0, explicacao:"A germinação envolve aumento da respiração celular para fornecer energia ao embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"As enzimas atuam durante a germinação principalmente para:", opcoes:["Produzir tegumento","Degradar reservas nutritivas","Realizar fotossíntese","Promover dispersão"], correta:1, explicacao:"As enzimas hidrolisam reservas, disponibilizando nutrientes ao embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A germinação epígea caracteriza-se por:", opcoes:["Cotilédones permanecem no solo","Cotilédones são elevados acima do solo","Ausência de cotilédones","Desenvolvimento direto da raiz"], correta:1, explicacao:"Na germinação epígea, os cotilédones emergem acima da superfície do solo."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A disponibilidade de oxigênio é importante na germinação porque:", opcoes:["Impede a absorção de água","Estimula a dormência","Permite a respiração celular","Promove dispersão"], correta:2, explicacao:"O oxigênio é essencial para a respiração celular, que fornece energia ao embrião."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A temperatura influencia a germinação ao:", opcoes:["Regular a atividade enzimática","Eliminar reservas nutritivas","Impedir a absorção de água","Substituir o oxigênio"], correta:0, explicacao:"A temperatura afeta diretamente a atividade enzimática e o metabolismo da semente."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"A dormência tegumentar ocorre quando:", opcoes:["O embrião está imaturo","O tegumento impede a entrada de água ou gases","Falta de nutrientes no solo","A semente não possui reservas"], correta:1, explicacao:"O tegumento impermeável pode impedir a imbibição ou trocas gasosas, mantendo a dormência."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Germinação de sementes", pergunta:"Durante a germinação, o consumo de reservas ocorre principalmente por meio de:", opcoes:["Fotossíntese","Respiração celular","Transpiração","Absorção direta do solo"], correta:1, explicacao:"A respiração celular converte reservas em energia utilizável para o crescimento do embrião."},
+
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"O principal objetivo do armazenamento de sementes é:", opcoes:["Aumentar o tamanho das sementes","Manter a viabilidade ao longo do tempo","Estimular a germinação imediata","Reduzir a variabilidade genética"], correta:1, explicacao:"O armazenamento visa conservar a viabilidade e o vigor das sementes até sua utilização."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"A redução da umidade das sementes é importante porque:", opcoes:["Aumenta a germinação imediata","Diminui a atividade metabólica e a deterioração","Estimula a produção de frutos","Melhora a dispersão"], correta:1, explicacao:"Menor teor de água reduz o metabolismo e retarda a deterioração das sementes."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"Temperaturas mais baixas no armazenamento de sementes contribuem para:", opcoes:["Aumentar a respiração","Acelerar a deterioração","Reduzir a atividade metabólica","Estimular a germinação"], correta:2, explicacao:"Temperaturas baixas reduzem a atividade metabólica, prolongando a viabilidade."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"A deterioração de sementes está associada principalmente a:", opcoes:["Processos metabólicos e danos celulares","Aumento da fotossíntese","Produção de flores","Formação de frutos"], correta:0, explicacao:"A deterioração envolve danos celulares acumulativos e alterações metabólicas."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"Sementes ortodoxas devem ser armazenadas preferencialmente em condições de:", opcoes:["Alta umidade e alta temperatura","Baixa umidade e baixa temperatura","Alta umidade e baixa temperatura","Baixa umidade e alta temperatura"], correta:1, explicacao:"Sementes ortodoxas toleram dessecação e são melhor conservadas em baixa umidade e temperatura."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"Sementes recalcitrantes apresentam maior dificuldade de armazenamento porque:", opcoes:["Possuem tegumento rígido","São sensíveis à dessecação","Têm alta longevidade","Apresentam baixa umidade natural"], correta:1, explicacao:"Sementes recalcitrantes não toleram a perda de água, o que limita seu armazenamento."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"A presença de oxigênio no armazenamento pode influenciar porque:", opcoes:["Elimina reservas nutritivas","Impede a germinação","Permite a respiração celular","Produz tegumento"], correta:2, explicacao:"O oxigênio permite a respiração, que pode contribuir para a deterioração ao longo do tempo."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"O controle de pragas durante o armazenamento é importante para:", opcoes:["Evitar danos físicos e perda de qualidade","Aumentar a fotossíntese","Estimular a germinação","Reduzir o tamanho das sementes"], correta:0, explicacao:"Insetos e fungos podem causar danos e reduzir a viabilidade das sementes."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"A longevidade das sementes está diretamente relacionada a:", opcoes:["Teor de água e temperatura de armazenamento","Cor da semente","Formato do fruto","Altura da planta"], correta:1, explicacao:"Baixo teor de água e temperatura adequada aumentam a longevidade das sementes."},
+
+{materia:"Biologia, produção e tecnologias de sementes florestais", assunto:"Armazenamento de sementes", pergunta:"O armazenamento inadequado pode resultar em:", opcoes:["Aumento do vigor","Manutenção da viabilidade","Deterioração e perda de germinação","Aumento da variabilidade genética"], correta:2, explicacao:"Condições inadequadas aceleram a deterioração, reduzindo a germinação e o vigor."}
 
 ]
 
@@ -2031,29 +377,31 @@ let atual=0
 let pontos=0
 let respondido=false
 
-function criarMenu(){
+// MENU MATÉRIAS + CONFIRMAR
+
+function criarMenuMaterias(){
 
 let menu=document.getElementById("menu")
 
-let temas=[...new Set(banco.map(p=>p.tema))]
+let materias=[...new Set(banco.map(p=>p.materia))]
 
-menu.innerHTML="<h2 style='font-size:32px'>Escolha o tema</h2>"
+menu.innerHTML="<h2 style='font-size:32px'>Escolha a matéria</h2>"
 
-temas.forEach(function(t){
+materias.forEach(function(m){
 
 let botao=document.createElement("div")
 botao.className="temaBtn"
-botao.innerText=t
+botao.innerText=m
 
 botao.onclick=function(){
 
-temaSelecionado=t
+materiaSelecionada=m
 
 document.querySelectorAll(".temaBtn").forEach(b=>{
-b.classList.remove("selecionada")
+b.classList.remove("selecionadaMenu")
 })
 
-botao.classList.add("selecionada")
+botao.classList.add("selecionadaMenu")
 
 }
 
@@ -2061,13 +409,16 @@ menu.appendChild(botao)
 
 })
 
+// BOTÃO CONFIRMAR MATÉRIA
 let confirmar=document.createElement("button")
-confirmar.innerText="Confirmar tema"
+confirmar.innerText="Confirmar matéria"
 
 confirmar.onclick=function(){
 
-if(temaSelecionado){
-iniciarQuiz(temaSelecionado)
+if(materiaSelecionada){
+criarMenuAssuntos(materiaSelecionada)
+}else{
+alert("Selecione uma matéria")
 }
 
 }
@@ -2076,9 +427,75 @@ menu.appendChild(confirmar)
 
 }
 
-function iniciarQuiz(tema){
+// MENU ASSUNTOS COM CONFIRMAR
 
-perguntas=banco.filter(p=>p.tema===tema)
+function criarMenuAssuntos(materia){
+
+let menu=document.getElementById("menu")
+
+let assuntos=[...new Set(
+banco.filter(p=>p.materia===materia).map(p=>p.assunto)
+)]
+
+menu.innerHTML="<h2 style='font-size:28px'>"+materia+"</h2>"
+menu.innerHTML+="<p>Escolha o assunto</p>"
+
+assuntos.forEach(function(a){
+
+let botao=document.createElement("div")
+botao.className="temaBtn"
+botao.innerText=a
+
+botao.onclick=function(){
+
+assuntoSelecionado=a
+
+document.querySelectorAll(".temaBtn").forEach(b=>{
+b.classList.remove("selecionadaMenu")
+})
+
+botao.classList.add("selecionadaMenu")
+
+}
+
+menu.appendChild(botao)
+
+})
+
+// BOTÃO CONFIRMAR
+
+let confirmar=document.createElement("button")
+
+confirmar.innerText="Confirmar assunto"
+
+confirmar.onclick=function(){
+
+if(materiaSelecionada && assuntoSelecionado){
+iniciarQuiz(materiaSelecionada,assuntoSelecionado)
+}else{
+alert("Selecione matéria e assunto")
+}
+
+}
+
+menu.appendChild(confirmar)
+
+// VOLTAR
+let voltar=document.createElement("button")
+voltar.innerText="Voltar"
+voltar.onclick=function(){
+criarMenuMaterias()
+}
+
+menu.appendChild(voltar)
+
+}
+
+// RESTO DO CÓDIGO IGUAL
+
+function iniciarQuiz(materia,assunto){
+
+perguntas=banco.filter(p=>p.materia===materia && p.assunto===assunto)
 
 embaralhar(perguntas)
 
@@ -2096,7 +513,7 @@ function carregar(){
 
 let p=perguntas[atual]
 
-document.getElementById("tema").innerText="Tema: "+p.tema
+document.getElementById("tema").innerText=p.materia+" → "+p.assunto
 document.getElementById("pergunta").innerText=p.pergunta
 
 for(let i=0;i<4;i++){
@@ -2180,9 +597,7 @@ atual++
 if(atual>=perguntas.length){
 
 alert("Fim do quiz! Pontos: "+pontos+" de "+perguntas.length)
-
 location.reload()
-
 return
 
 }
@@ -2205,8 +620,6 @@ array[j]=temp
 
 }
 
-// BOTÃO VOLTAR AO MENU
-
 function voltarMenu(){
 
 document.getElementById("quiz").style.display="none"
@@ -2216,15 +629,14 @@ atual=0
 pontos=0
 respondido=false
 opcaoSelecionada=null
-temaSelecionado=null
+materiaSelecionada=null
+assuntoSelecionado=null
 
-document.getElementById("menu").innerHTML=""
-
-criarMenu()
+criarMenuMaterias()
 
 }
 
-criarMenu()
+criarMenuMaterias()
 
 </script>
 
