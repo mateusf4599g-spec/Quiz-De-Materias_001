@@ -6,6 +6,7 @@
 <title>Quiz de Engenharia Florestal</title>
 
 <style>
+
 body{
 font-family:Arial;
 background:#0f172a;
@@ -16,6 +17,7 @@ align-items:center;
 min-height:100vh;
 margin:0;
 padding:15px;
+-webkit-tap-highlight-color: transparent;
 }
 
 .container{
@@ -35,14 +37,21 @@ border-radius:8px;
 cursor:pointer;
 text-align:center;
 font-size:30px;
+border:3px solid #1f2937;
+color:white;
+user-select:none;
+touch-action: manipulation;
+transition:0.2s;
 }
 
-.temaBtn:hover{
+.temaBtn:active{
 background:#1f2937;
 }
 
 .selecionadaMenu{
-background:#2563eb;
+background:#1d4ed8 !important;
+border:3px solid #60a5fa !important;
+color:white;
 }
 
 .pergunta{
@@ -58,28 +67,25 @@ margin:10px 0;
 border-radius:8px;
 cursor:pointer;
 font-size:24px;
+border:3px solid #1f2937;
+color:white;
+user-select:none;
+touch-action: manipulation;
 }
 
 .selecionada{
-background:#3b82f6;
-border:3px solid #60a5fa;
-transform:scale(1.02);
-}
-
-.opcao:hover{
-background:#1f2937;
-}
-
-.opcao:active{
-background:#3b82f6;
+background:#1d4ed8 !important;
+border:3px solid #60a5fa !important;
 }
 
 .correta{
 background:#16a34a !important;
+border:3px solid #4ade80;
 }
 
 .errada{
 background:#dc2626 !important;
+border:3px solid #f87171;
 }
 
 #explicacao{
@@ -150,18 +156,17 @@ color:white;
 cursor:pointer;
 font-size:16px;
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- PLACA INICIAL -->
 <div class="container" id="inicio">
 
 <h1 style="text-align:center; font-size:34px;">
 🌳 Quiz de Engenharia Florestal
 </h1>
-
 
 <p style="text-align:center; font-size:12px; margin-top:10px; opacity:0.7;">
 feito por Matheus
@@ -169,14 +174,6 @@ feito por Matheus
 
 <p style="font-size:20px; text-align:center;">
 Sistema de perguntas e respostas para estudar matérias da Engenharia Florestal.
-</p>
-
-<p style="font-size:18px; text-align:center;">
-Escolha a matéria, escolha o assunto e responda as perguntas.
-</p>
-
-<p style="font-size:18px; text-align:center;">
-Clique em começar para iniciar.
 </p>
 
 <button onclick="comecarQuiz()">Começar</button>
@@ -210,21 +207,16 @@ Clique em começar para iniciar.
 </div>
 
 <script>
+
 let materiaSelecionada=null
 let assuntoSelecionado=null
 let opcaoSelecionada=null
 
 let banco=[
 
-{materia:"Introdução à Engenharia Florestal", assunto:"O que é Engenharia Florestal", pergunta:"A Engenharia Florestal pode ser definida como a área que:", opcoes:["Estuda apenas a produção de madeira para indústrias","Planeja, maneja e conserva recursos florestais de forma sustentável","Trabalha exclusivamente com agricultura de grãos","Atua somente na preservação sem uso econômico"], correta:1, explicacao:"A Engenharia Florestal envolve o planejamento, manejo, conservação e uso sustentável dos recursos florestais, equilibrando produção e preservação."},
+{materia:"Introdução à Engenharia Florestal", assunto:"O que é Engenharia Florestal", pergunta:"A Engenharia Florestal pode ser definida como a área que:", opcoes:["Estuda apenas a produção de madeira para indústrias","Planeja, maneja e conserva recursos florestais de forma sustentável","Trabalha exclusivamente com agricultura de grãos","Atua somente na preservação sem uso econômico"], correta:1, explicacao:"A Engenharia Florestal envolve planejamento, manejo e conservação sustentável."},
 
-{materia:"Mecânica dos Fluidos", assunto:"Introdução à Mecânica dos Fluidos", pergunta:"Um fluido pode ser definido corretamente como:", opcoes:["Material que mantém forma fixa independentemente da força aplicada","Substância que se deforma continuamente quando submetida a uma força tangencial","Corpo rígido que não sofre deformação","Material que possui apenas estado sólido"], correta:1, explicacao:"Fluido é qualquer substância que se deforma continuamente sob ação de uma força tangencial."},
-
-{materia:"Microbiologia Geral", assunto:"Introdução à Microbiologia Geral", pergunta:"A microbiologia pode ser definida corretamente como:", opcoes:["O estudo exclusivo de bactérias patogênicas","O estudo dos microrganismos e suas interações com o ambiente e outros seres vivos","O estudo apenas de vírus e fungos","O estudo das plantas microscópicas"], correta:1, explicacao:"A microbiologia estuda os microrganismos e suas interações com o ambiente."},
-
-{materia:"Química do solo", assunto:"Solo como fornecedor de nutrientes", pergunta:"Qual é a principal forma pela qual as plantas absorvem nutrientes do solo?", opcoes:["Pela solução do solo","Pela matéria orgânica sólida","Pelos minerais não intemperizados","Pelo ar presente nos poros"], correta:0, explicacao:"As plantas absorvem nutrientes principalmente pela solução do solo."},
-
-{materia:"Eletricidade Aplicada", assunto:"Introdução à Eletricidade Aplicada", pergunta:"A eletricidade pode ser definida corretamente como:", opcoes:["Movimento de ondas sonoras em condutores","Fluxo de cargas elétricas em um meio condutor","Movimento de energia térmica no ar","Transferência de energia mecânica entre corpos"], correta:1, explicacao:"Eletricidade é o fluxo de cargas elétricas através de um condutor."}
+{materia:"Mecânica dos Fluidos", assunto:"Introdução à Mecânica dos Fluidos", pergunta:"Um fluido pode ser definido corretamente como:", opcoes:["Material que mantém forma fixa","Substância que se deforma continuamente sob força tangencial","Corpo rígido","Material apenas sólido"], correta:1, explicacao:"Fluido se deforma continuamente sob força tangencial."}
 
 ]
 
@@ -239,114 +231,112 @@ document.getElementById("menu").style.display="block"
 criarMenuMaterias()
 }
 
+
+
 function criarMenuMaterias(){
+
 let menu=document.getElementById("menu")
-menu.innerHTML = `
-<div class="barra-pesquisa">
-<input type="text" id="pesquisaInput" placeholder="Pesquisar matéria, assunto ou pergunta...">
-<button onclick="pesquisarQuestoes()">Pesquisar</button>
-<button onclick="limparBusca()">Limpar</button>
-</div>
-<h2 style='font-size:32px'>Escolha a matéria</h2>
-`
+
+menu.innerHTML="<h2>Escolha a matéria</h2>"
 
 let materias=[...new Set(banco.map(p=>p.materia))]
 
-materias.forEach(function(m){
+materias.forEach(m=>{
+
 let botao=document.createElement("div")
 botao.className="temaBtn"
 botao.innerText=m
 
+
 botao.onclick=function(){
+
 materiaSelecionada=m
+
 document.querySelectorAll(".temaBtn").forEach(b=>{
 b.classList.remove("selecionadaMenu")
 })
+
 botao.classList.add("selecionadaMenu")
+
 }
 
 menu.appendChild(botao)
+
 })
 
 let confirmar=document.createElement("button")
 confirmar.innerText="Confirmar matéria"
+
 confirmar.onclick=function(){
-if(materiaSelecionada){
-criarMenuAssuntos(materiaSelecionada)
-}else{
+
+if(!materiaSelecionada){
 alert("Selecione uma matéria")
+return
 }
+
+
+
+criarMenuAssuntos(materiaSelecionada)
+
 }
+
 menu.appendChild(confirmar)
+
 }
 
 function criarMenuAssuntos(materia){
-let menu=document.getElementById("menu")
-let assuntos=[...new Set(banco.filter(p=>p.materia===materia).map(p=>p.assunto))]
-menu.innerHTML="<h2 style='font-size:28px'>"+materia+"</h2><p>Escolha o assunto</p>"
 
-assuntos.forEach(function(a){
+let menu=document.getElementById("menu")
+
+let assuntos=[...new Set(banco.filter(p=>p.materia===materia).map(p=>p.assunto))]
+
+menu.innerHTML="<h2>"+materia+"</h2><p>Escolha o assunto</p>"
+
+assuntos.forEach(a=>{
+
 let botao=document.createElement("div")
 botao.className="temaBtn"
 botao.innerText=a
 
+
+
 botao.onclick=function(){
+
 assuntoSelecionado=a
+
 document.querySelectorAll(".temaBtn").forEach(b=>{
 b.classList.remove("selecionadaMenu")
 })
+
 botao.classList.add("selecionadaMenu")
+
 }
+
 menu.appendChild(botao)
+
 })
 
 let confirmar=document.createElement("button")
 confirmar.innerText="Confirmar assunto"
+
 confirmar.onclick=function(){
-if(materiaSelecionada && assuntoSelecionado){
-iniciarQuiz(materiaSelecionada,assuntoSelecionado)
-}else{
-alert("Selecione matéria e assunto")
-}
-}
-menu.appendChild(confirmar)
 
-let voltar=document.createElement("button")
-voltar.innerText="Voltar"
-voltar.onclick=function(){ criarMenuMaterias() }
-menu.appendChild(voltar)
-}
-
-function pesquisarQuestoes(){
-let termo=document.getElementById("pesquisaInput").value.toLowerCase()
-let resultados=banco.filter(p=>{
-return p.pergunta.toLowerCase().includes(termo) ||
-p.assunto.toLowerCase().includes(termo) ||
-p.materia.toLowerCase().includes(termo)
-})
-
-if(resultados.length===0){
-alert("Nenhuma questão encontrada")
+if(!assuntoSelecionado){
+alert("Selecione um assunto")
 return
 }
 
-perguntas=resultados
-atual=0
-pontos=0
+iniciarQuiz(materiaSelecionada,assuntoSelecionado)
 
-document.getElementById("menu").style.display="none"
-document.getElementById("quiz").style.display="block"
-
-carregar()
 }
 
-function limparBusca(){
-document.getElementById("pesquisaInput").value=""
+menu.appendChild(confirmar)
+
 }
 
 function iniciarQuiz(materia,assunto){
+
 perguntas=banco.filter(p=>p.materia===materia && p.assunto===assunto)
-embaralhar(perguntas)
 
 document.getElementById("menu").style.display="none"
 document.getElementById("quiz").style.display="block"
@@ -355,51 +345,69 @@ atual=0
 pontos=0
 
 carregar()
+
 }
 
 function carregar(){
+
 let p=perguntas[atual]
 
 document.getElementById("tema").innerText=p.materia+" → "+p.assunto
 document.getElementById("pergunta").innerText=p.pergunta
 
 for(let i=0;i<4;i++){
+
 let op=document.getElementById("op"+i)
+
 op.innerText=p.opcoes[i]
 op.className="opcao"
 
 op.onclick=function(){
+
 opcaoSelecionada=i
+
 document.querySelectorAll(".opcao").forEach(o=>{
 o.classList.remove("selecionada")
 })
+
 op.classList.add("selecionada")
-}
+
 }
 
-document.getElementById("placar").innerText="Pergunta "+(atual+1)+" de "+perguntas.length+" | Pontos: "+pontos
-document.getElementById("progresso").style.width=((atual/perguntas.length)*100)+"%"
+}
+
+document.getElementById("placar").innerText=
+"Pergunta "+(atual+1)+" de "+perguntas.length+" | Pontos: "+pontos
+
+document.getElementById("progresso").style.width=
+((atual/perguntas.length)*100)+"%"
 
 document.getElementById("explicacao").innerText=""
 
-respondido=false
-
 document.getElementById("btnProxima").style.display="none"
 document.getElementById("btnConfirmar").style.display="block"
+
+respondido=false
+opcaoSelecionada=null
+
 }
 
 function confirmarResposta(){
-if(opcaoSelecionada===null) return
+
+if(opcaoSelecionada===null){
+alert("Selecione uma opção")
+return
+}
 
 responder(opcaoSelecionada)
 
-opcaoSelecionada=null
-
 document.getElementById("btnProxima").style.display="block"
 document.getElementById("btnConfirmar").style.display="none"
+
 }
 
 function responder(i){
+
 if(respondido) return
 
 respondido=true
@@ -407,58 +415,43 @@ respondido=true
 let correta=perguntas[atual].correta
 
 if(i===correta){
+
 document.getElementById("op"+i).classList.add("correta")
 pontos++
+
 }else{
+
 document.getElementById("op"+i).classList.add("errada")
 document.getElementById("op"+correta).classList.add("correta")
+
 }
 
-document.getElementById("explicacao").innerText="Explicação: "+perguntas[atual].explicacao
+document.getElementById("explicacao").innerText=
+"Explicação: "+perguntas[atual].explicacao
+
 }
 
 function proxima(){
+
 atual++
 
 if(atual>=perguntas.length){
-alert(
-"Fim do quiz!\n"+
-"Matéria: "+materiaSelecionada+"\n"+
-"Assunto: "+assuntoSelecionado+"\n"+
-"Acertou "+pontos+" de "+perguntas.length+" perguntas"
-)
+
+alert("Fim do quiz! Acertou "+pontos+" de "+perguntas.length)
+
 location.reload()
 return
+
 }
 
 carregar()
-}
 
-function embaralhar(array){
-for(let i=array.length-1;i>0;i--){
-let j=Math.floor(Math.random()*(i+1))
-let temp=array[i]
-array[i]=array[j]
-array[j]=temp
-}
 }
 
 function voltarMenu(){
-document.getElementById("quiz").style.display="none"
-document.getElementById("menu").style.display="block"
-
-atual=0
-pontos=0
-respondido=false
-opcaoSelecionada=null
-materiaSelecionada=null
-assuntoSelecionado=null
-
-criarMenuMaterias()
+location.reload()
 }
 
-window.onload=function(){
-}
 </script>
 
 </body>
